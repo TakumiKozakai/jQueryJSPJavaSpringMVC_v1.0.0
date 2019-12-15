@@ -56,9 +56,30 @@ public class HelloController {
 	 */
 	private void convertJsonFruitList(Model model, Form form) {
 
-		Fruit apple = new Fruit("apple", false);
-		Fruit banana = new Fruit("banana", true);
-		Fruit grape = new Fruit("grape", true);
+		Fruit apple = new Fruit(
+				"apple",
+				"001",
+				"2019年12月15日",
+				"2019",
+				"12",
+				"15",
+				true);
+		Fruit banana = new Fruit(
+				"banana",
+				"002",
+				"2019年12月15日",
+				"2019",
+				"12",
+				"15",
+				true);
+		Fruit grape = new Fruit(
+				"grape",
+				"001",
+				"2019年12月15日",
+				"2019",
+				"12",
+				"15",
+				true);
 
 		ArrayList<Fruit> fruitList = new ArrayList<Fruit>();
 		fruitList.add(apple);
