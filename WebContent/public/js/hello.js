@@ -75,7 +75,7 @@ function renderFruitTable() {
  */
 function copyRegDate() {
 	// 選択された行の年月日をコピーする
-	$($("input[name='select']:checkbox:checked").get().reverse())
+	$($("input[name='select']:checkbox:checked").get())
 			.each(
 					function() {
 						$("#regDateYear").val(
@@ -98,20 +98,21 @@ function updateRegDate() {
 
 	// 日付生成
 	// 登録日-年
-	var inputtedregDateYear = $("#regDateYear").val();
+	var inputtedRegDateYear = $("#regDateYear").val();
 	// 登録日-月
-	var inputtedregDateMonth = $("#regDateMonth").val();
+	var inputtedRegDateMonth = $("#regDateMonth").val();
 	// 登録日-日
-	var inputtedregDateDay = $("#regDateDay").val();
+	var inputtedRegDateDay = $("#regDateDay").val();
 	// 登録日
-	var inputtedregDate =
-		inputtedregDateYear + "年"
-		+ inputtedregDateMonth + "月"
-		+ inputtedregDateDay + "日"
+	var inputtedRegDate =
+		inputtedRegDateYear + "年"
+		+ inputtedRegDateMonth + "月"
+		+ inputtedRegDateDay + "日"
 
 	// 更新対象判定用 番号取得
-	var row = [$($("input[name='select']:checkbox:checked").get())];
-	var fruitNo = fruitNo = $(row).parent().parent().find("td.fruitNo").text();
+	var row = [];
+	row = $("input[name='select']:checkbox:checked").get();
+	var fruitNo = $(row).parent().parent().find("td.fruitNo").text();
 
 	$.each(objFruitData, function(i, row) {
 		// 新規分でない場合、スキップ
@@ -121,10 +122,10 @@ function updateRegDate() {
 
 		// 番号が同一の場合、日付更新
 		if (fruitNo === row.fruitNo) {
-			row.regDate = inputtedregDate;
-			row.regDateYear = inputtedregDateYear;
-			row.regDateMonth = inputtedregDateMonth;
-			row.regDateDay = inputtedregDateDay;
+			row.regDate = inputtedRegDate;
+			row.regDateYear = inputtedRegDateYear;
+			row.regDateMonth = inputtedRegDateMonth;
+			row.regDateDay = inputtedRegDateDay;
 		}
 	});
 
