@@ -1,16 +1,23 @@
 package com.example.demo;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -95,6 +102,44 @@ public class HelloController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	/**
+	 * @param form
+	 * @param model
+	 * @return
+	 * @throws IOException
+	 * @throws JsonMappingException
+	 * @throws JsonParseException
+	 */
+	@GetMapping(value = "/checkRegDate")
+	@ResponseBody
+	public String checkRegDate(@RequestParam String requestStrJson, HttpServletRequest request)
+			throws JsonParseException, JsonMappingException, IOException {
+
+		ObjectMapper objectMapper = new ObjectMapper();
+
+		checkRegDate_RequestBean req = new checkRegDate_RequestBean();
+		checkRegDate_ResponseBean res = new checkRegDate_ResponseBean();
+
+		req = objectMapper.readValue(requestStrJson, checkRegDate_RequestBean.class);
+		res.setResult("success");
+
+		if(4 < req.getRegDateYear().length()) {
+			res.setResult("error");
+		}
+
+		if(2 < req.getRegDateMonth().length()) {
+			res.setResult("error");
+		}
+		if(2 < req.getRegDateDay().length()) {
+			res.setResult("error");
+		}
+
+		String strResponse = objectMapper.writeValueAsString(res);
+
+		return strResponse;
 
 	}
 

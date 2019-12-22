@@ -25,15 +25,15 @@
 					<th width="50px">選択</th>
 					<th width="50px">新規</th>
 					<th width="100px">果物名</th>
-					<th width="100px">番号</th>
+					<th width="80px">管理番号</th>
 					<th width="150px">登録日</th>
-					<th width="100px">登録日-年</th>
-					<th width="100px">登録日-月</th>
-					<th width="100px">登録日-日</th>
+					<th width="50px">年</th>
+					<th width="50px">月</th>
+					<th width="50px">日</th>
 				</tr>
 			</table>
 		</div>
-		<div>
+		<div id="fruitInfoDiv">
 			<table id="fruitTable" border="1" style="border-collapse: collapse">
 				<tr style="display: none;">
 					<td width="50px"  align="center">
@@ -41,36 +41,53 @@
 					</td>
 					<td width="50px" class="newFlag" align="center" style="color: red;"></td>
 					<td width="100px" class="fruitName"></td>
-					<td width="100px" class="fruitNo"></td>
+					<td width="80px" class="fruitNo"></td>
 					<td width="150px" class="regDate"></td>
-					<td width="100px" class="regDateYear"></td>
-					<td width="100px" class="regDateMonth"></td>
-					<td width="100px" class="regDateDay"></td>
+					<td width="50px" class="hdnRegDateYear"></td>
+					<td width="50px" class="hdnRegDateMonth"></td>
+					<td width="50px" class="hdnRegDateDay"></td>
 				</tr>
 			</table>
 		</div>
 		<br>
 		<div>
-			<input type="button" id="BTN_jadge" name="BTN_jadge" value="判定">
+		<table>
+			<tr>
+				<td><span style="border-bottom: solid 1px;">フルーツ追加</span></td>
+			</tr>
+			<tr>
+				<td>果物名　：<input type="text" id="fruitName" name= "fruitName" value=""></td>
+			</tr>
+			<tr>
+				<td>管理番号：<input type="text" id="fruitNo" name= "fruitNo" value=""></td>
+			</tr>
+			<tr>
+				<td><input type="button" id="BTN_addFruit" name="BTN_addFruit" value="追加"></td>
+			</tr>
+			</table>
 		</div>
 		<br>
 		<div>
-			<form:input style="width: 30px;" id="regDateYear" path="regDateYear" />年
-			<form:input style="width: 30px;" id="regDateMonth" path="regDateMonth" />月
-			<form:input style="width: 30px;" id="regDateDay" path="regDateDay" />日
+			<input type="button" id="BTN_jadge" name="BTN_jadge" value="新規有無確認">
 		</div>
 		<br>
 		<div>
-			<input type="button" id="BTN_updateRegDate" name="BTN_updateRegDate" value="登録日更新">
-		</div>
-		<div>
-			<input type="button" id="BTN_decide" name="BTN_decide" value="実行">
+			<span style="border-bottom: solid 1px;">登録日変更</span>
+			<br>
+			<form:input style="width: 30px;" id="inputRegDateYear" path="regDateYear" length="4" />年
+			<form:input style="width: 30px;" id="inputRegDateMonth" path="regDateMonth" length="2" />月
+			<form:input style="width: 30px;" id="inputRegDateDay" path="regDateDay" length="2" />日
+			<input type="button" id="BTN_updateRegDate" name="BTN_updateRegDate" value="変更">
 		</div>
 	</form:form>
 	<footer>
 		<script type="text/javascript"
 			src="/demo/resources/js/jQuery-3.4.1.min.js"></script>
+		<script type="text/javascript">
+			var contextPath = "${pageContext.request.contextPath}";
+		</script>
 		<script type="text/javascript" src="/demo/resources/js/hello.js"></script>
+
 	</footer>
 </body>
 </html>
