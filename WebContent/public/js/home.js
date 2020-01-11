@@ -4,28 +4,31 @@ var objFruitData = [];
 $(document).ready(function() {
 	// 項目初期化
 	init();
-
 	// 追加ボタン押下イベント
 	$("#BTN_addFruit").click(function() {
 		// 追加
 		addFruit()
 	});
-
 	// 判定ボタン押下イベント
 	$("#BTN_jadge").click(function() {
+		var newFlag;
 		// 新規分有無チェック
 		$.each(objFruitData, function(i, row) {
 			if (row.newFlag) {
-				window.alert("新規分が存在しています。");
-				return false;
+				newFlag = true;
+				return;
 			}
 		});
+		if (newFlag) {
+			window.alert("新規分が存在しています。");
+		} else {
+			window.alert("新規分は存在していません。");
+		}
 	});
-
-	// 登録日変更ボタン押下イベント
-	$("#BTN_updateRegDate").click(function() {
+	// 登録日変更ボタン押下イベント(GET送信)
+	$("#BTN_updateRegDateGet").click(function() {
 		// 単項目チェック
-		checkRegDate();
+		checkRegDateGet();
 		// 登録日変更
 		updateRegDate();
 	});
@@ -40,7 +43,6 @@ function init(){
 	}
 	// formのフルーツリストにobjFruitDataを設定
 	$("#fruitList").val(JSON.stringify(objFruitData));
-
 	// フルーツテーブルレンダリング
 	renderFruitTable();
 }
@@ -65,20 +67,17 @@ function addFruit(){
 
 	// 生成したフルーツデータを格納
 	objFruitData.push(fruitData);
-
 	// formのフルーツリストにobjFruitDataを設定
 	$("#fruitList").val(JSON.stringify(objFruitData));
-
 	// フルーツテーブルレンダリング
 	renderFruitTable();
-
 	// 入力値クリア
 	$("#fruitName").val("");
 	$("#fruitNo").val("");
 }
 
 /**
- * 日付コピー
+ * 登録日コピー
  */
 function copyRegDate() {
 	// 選択された行の年月日をコピーする
@@ -93,9 +92,9 @@ function copyRegDate() {
 					});
 }
 /**
- * 単項目チェック（登録日変更）
+ * 単項目チェック（登録日変更GET）
  */
-function checkRegDate() {
+function checkRegDateGet() {
 	// 入力された登録日をController側でチェックする
 	requestBean = {
 		regDateYear : $("#inputRegDateYear").val(),
@@ -107,7 +106,7 @@ function checkRegDate() {
 		type : "GET",
 		async : true,
 		contentType : "application/json",
-		url : contextPath + "/checkRegDate",
+		url : contextPath + "/checkRegDateGet",
 		data : {
 			requestStrJson : JSON.stringify(requestBean)
 		},
@@ -169,7 +168,6 @@ function updateRegDate() {
 
 	// formのフルーツリストにobjFruitDataを設定
 	$("#fruitList").val(JSON.stringify(objFruitData));
-
 	// フルーツテーブルレンダリング
 	renderFruitTable();
 }
@@ -198,7 +196,7 @@ function renderFruitTable() {
 		// スクロールの設定
 		if (i == 3) {
 			$("#fruitInfoDiv").css({
-				height : parseInt($("#fruitTable").outerHeight()) + 3,
+				height : parseInt($("#fruitTable").outerHeight()),
 				overflow : "auto"
 			});
 		}
@@ -209,8 +207,7 @@ function renderFruitTable() {
 		// 複数チェック抑止
 		$("input[name='select']").prop('checked', false);
 		$(this).prop('checked', true);
-
-		// 日付コピー
+		// 登録日コピー
 		copyRegDate();
 	});
 };

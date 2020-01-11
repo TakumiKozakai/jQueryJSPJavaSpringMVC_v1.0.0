@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 @Controller
-public class HelloController {
+public class HomeController {
 
 	/**
 	 *
@@ -54,7 +54,7 @@ public class HelloController {
 		this.convertJsonFruitList(model, form);
 		model.addAttribute("form", form);
 
-		return "hello";
+		return "home";
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class HelloController {
 				"2019",
 				"12",
 				"15",
-				true);
+				false);
 		Fruit banana = new Fruit(
 				"banana",
 				"002",
@@ -78,7 +78,7 @@ public class HelloController {
 				"2019",
 				"12",
 				"15",
-				true);
+				false);
 		Fruit grape = new Fruit(
 				"grape",
 				"001",
@@ -86,7 +86,7 @@ public class HelloController {
 				"2019",
 				"12",
 				"15",
-				true);
+				false);
 
 		ArrayList<Fruit> fruitList = new ArrayList<Fruit>();
 		fruitList.add(apple);
@@ -113,7 +113,7 @@ public class HelloController {
 	 * @throws JsonMappingException
 	 * @throws JsonParseException
 	 */
-	@GetMapping(value = "/checkRegDate")
+	@GetMapping(value = "/checkRegDateGet")
 	@ResponseBody
 	public String checkRegDate(@RequestParam String requestStrJson, HttpServletRequest request)
 			throws JsonParseException, JsonMappingException, IOException {
@@ -129,7 +129,6 @@ public class HelloController {
 		if(4 < req.getRegDateYear().length()) {
 			res.setResult("error");
 		}
-
 		if(2 < req.getRegDateMonth().length()) {
 			res.setResult("error");
 		}
